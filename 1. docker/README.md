@@ -68,3 +68,8 @@ Dockerfile 是一個文本檔，內容包含了一系列指令，這些指令會
 
 1. Angular 專案（CSR/SPA）
 2. .NET Core WEB 專案
+
+## 如何指定 Container Registry?
+
+參考： https://ithelp.ithome.com.tw/articles/10202551
+
