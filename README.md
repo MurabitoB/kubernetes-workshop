@@ -5,12 +5,15 @@
 ## 環境
 要完成這個 Demo 請先安裝以下環境
 
-1. Docker Desktop
-2. Node.js
-3. .NET 6 SDK
-4. Kubernetes CLI (kubectl)
-5. Helm CLI
+1. [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+2. [Node.js](https://nodejs.org/en/) 請裝 LTS 版
+3. [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+4. [Kubernetes CLI (kubectl)](https://kubernetes.io/zh-cn/docs/tasks/tools/#kubectl)
+5. [Chocolatey](https://chocolatey.org/install)
+6. [Helm CLI](https://helm.sh/docs/intro/install/)
 
 ## 其他建議安裝工具
 
-1. Kubernetes Lens
+1. [Kubernetes Lens](https://k8slens.dev/)
+2. [Azure CLI](https://learn.microsoft.com/zh-tw/cli/azure/install-azure-cli
+)
