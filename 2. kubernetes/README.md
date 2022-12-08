@@ -7,6 +7,9 @@ Kubernetes 是一個 Container 管理系統，它可以幫助我們管理多個 
 
 如果你想要了解更多 Kubernetes 的基本概念，可以參考 [Kubernetes Concepts](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/)。
 
+## 關於 Namespace
+Namespace 是 Kubernetes 的資源管理單位，類似一個資料夾，可以把 Kubernetes Objects 根據業務領域進行管理。
+
 ## 關於 Pod 
 Pod 是 Kubernetes 的最小單位，一個 Pod 可以包含一個或多個 Container，這些 Container 會共享相同的 Network Namespace，並且可以透過 localhost 來互相溝通。
 
@@ -36,3 +39,31 @@ Secret 是一個用來儲存敏感資訊的物件，它可以讓我們將敏感�
 
 練習題目請參照：
 [Practices.md](Practices.md)
+
+## 開始練習
+
+1. 建立一個名為 `demo` 的 Namespace
+
+```bash
+kubectl create namespace demo
+```
+
+2. 建立一個名為 `docker-angular-sample` 的 deployment，但是不要 apply 到環境上，而是透過 `--dry-run` 來檢查是否有錯誤，其要包含 2 個 Pod，並且使用 `docker-angular-sample` 的 image，`namespace` 指定為 `demo`。
+
+```bash
+kubectl create deployment docker-angular-sample --image=<registry>/docker-angular-sample --dry-run -o yaml --replicas=2 --namespace demo
+```
+
+3. 將上述指令轉成檔案，存放到 yamls/angular/deployment.yaml
+
+```bash
+kubectl create deployment docker-angular-sample --image=<registry>/docker-angular-sample --dry-run=client -o yaml --replicas=2 --namespace demo > yamls/angular/deployment.yaml
+```
+
+4. 建立一個 service 來暴露上述的 deployment 所建立的 pod，並且將 service 的 type 指定為 `NodePort`，並且將 port 指定為 `80`，`namespace` 指定為 `demo`。
+
+```bash
+kubectl expose deployment docker-angular-sample --type=NodePort --port=80 --dry-run=client -o yaml --namespace demo
+```
+
+## 延伸閱讀
