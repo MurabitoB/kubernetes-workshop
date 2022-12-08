@@ -1,8 +1,11 @@
 # Kubernetes
 
-練習題目請參照：
+## 關於 Kubernetes
+Kubernetes 是一個 Container 管理系統，它可以幫助我們管理多個 Container，並且提供一個高可用的環境。
 
-[Practices.md](Practices.md)
+透過 `kubectl` 這個 CLI 工具，我們可以透過指令來操作 Kubernetes。
+
+如果你想要了解更多 Kubernetes 的基本概念，可以參考 [Kubernetes Concepts](https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/)。
 
 ## 關於 Pod 
 Pod 是 Kubernetes 的最小單位，一個 Pod 可以包含一個或多個 Container，這些 Container 會共享相同的 Network Namespace，並且可以透過 localhost 來互相溝通。
@@ -19,3 +22,17 @@ Service 是一個抽象層，它會將一個或多個 Pod 組合成一個 Servic
 ## 關於 Ingress
 Ingress 暴露出 HTTP 或 HTTPS 的路由，提供給外部的服務來存取 Kubernetes 的服務。
 
+## 關於 ConfigMap
+ConfigMap 是一個用來儲存設定檔的物件，它可以讓我們將設定檔與程式碼分開，並且可以透過 ConfigMap 來傳遞設定檔給 Container。
+
+## 關於 Secret
+Secret 是一個用來儲存敏感資訊的物件，它可以讓我們將敏感資訊與程式碼分開，並且可以透過 Secret 來傳遞敏感資訊給 Container。
+
+## 關於本次 Demo
+
+本次練習預計將 `1. docker` 的 Angular 及 .NET Core 專案，透過 Kubernetes 來部署。
+
+不過在開始實做之前，請先練一下基本的 Kubernetes 指令。
+
+練習題目請參照：
+[Practices.md](Practices.md)

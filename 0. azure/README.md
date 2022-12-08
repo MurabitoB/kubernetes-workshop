@@ -20,5 +20,14 @@ az login
 ```
 使用該指令後，會跳出瀏覽器，請登入 Azure 帳號，並且允許登入。
 
-### 2. 取得 AKS Cluster 權限
+### 2. 取得 Azure Container Registry 權限
 
+```bash
+az acr login --name <resource name>
+```
+
+### 3. 取得 Azure Kubernetes Service Cluster 權限
+
+```bash
+az aks get-credentials --resource-group <resource group name> --name <cluster name>
+```
