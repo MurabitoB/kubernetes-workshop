@@ -8,3 +8,4 @@
 |建立 Kubernetes Objects 重複會覆蓋|kubectl apply | `-f {filename}` 透過設定檔 \| `--dry-run=client` 不實際設定到 cluster 上 \| `-o yaml` 將結果輸出成 yaml |
 | 檢視 k8s object 列表 | kubectl get {pods\|deployments\|services\|.etc}|`--namespace={namespace}`指定特定的 namespace(預設為 default)|
 |透過 `vim` 直接編輯線上的 k8s object 編輯完成後自動更新環境| kubectl edit {k8s object} {object name}| |
+|取得 POD 的 Shell|kubectl exec --srtin --tty {pod name} -- bin|
