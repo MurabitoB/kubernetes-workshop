@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: docker-angular-sample
+  name: docker-angular-sample
+  namespace: demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: docker-angular-sample
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: docker-angular-sample
+    spec:
+      containers:
+      - image: murabitob.azurecr.io/docker-angular-sample:latest
+        name: docker-angular-sample
+        resources: {}
+        ports: 
+          - name: http
+            containerPort: 8080
+            targetPort: 8080
+            protocol: TCP
+status: {}
