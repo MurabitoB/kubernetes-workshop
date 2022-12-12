@@ -62,6 +62,11 @@ Dockerfile 是一個文本檔，內容包含了一系列指令，這些指令會
 
 > 慣例上 Docker File 的檔名為 Dockerfile，並且放置在專案的根目錄下。
 
+如果要了解 Dockerfile 內部的指令的含義
+
+參照：[Dockerfile指令詳解](https://yeasy.gitbook.io/docker_practice/image/dockerfile)
+
+
 ## 範例專案
 
 本次 Demo 會包含：

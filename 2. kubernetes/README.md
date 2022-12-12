@@ -48,7 +48,7 @@ Secret 是一個用來儲存敏感資訊的物件，它可以讓我們將敏感�
 kubectl create namespace demo
 ```
 
-2. 建立一個名為 `docker-angular-sample` 的 deployment，但是不要 apply 到環境上，而是透過 `--dry-run` 來檢查是否有錯誤，其要包含 2 個 Pod，並且使用 `docker-angular-sample` 的 image，`namespace` 指定為 `demo`。
+2. 建立一個名為 `docker-angular-sample` 的 deployment，但是不要 apply 到環境上，而是透過 `--dry-run` 來檢查是否有錯誤，其要包含 2 個 Pod，並且使用 `docker-angular-sample` 的 image，`namespace` 指定為 `demo`， port 
 
 ```bash
 kubectl create deployment docker-angular-sample --image=<registry>/docker-angular-sample --dry-run -o yaml --replicas=2 --namespace demo
@@ -57,13 +57,13 @@ kubectl create deployment docker-angular-sample --image=<registry>/docker-angula
 3. 將上述指令轉成檔案，存放到 yamls/angular/deployment.yaml
 
 ```bash
-kubectl create deployment docker-angular-sample --image=<registry>/docker-angular-sample --dry-run=client -o yaml --replicas=2 --namespace demo > yamls/angular/deployment.yaml
+kubectl create deployment docker-angular-sample --image=murabitob.azurecr.io/docker-angular-sample --dry-run=client -o yaml --replicas=2 --namespace demo > yamls/angular/deployment.yaml
 ```
 
 4. 建立一個 service 來暴露上述的 deployment 所建立的 pod，並且將 service 的 type 指定為 `NodePort`，並且將 port 指定為 `80`，`namespace` 指定為 `demo`。
 
 ```bash
-kubectl expose deployment docker-angular-sample --type=NodePort --port=80 --dry-run=client -o yaml --namespace demo
+kubectl expose deployment docker-angular-sample --type=NodePort --port=80 --target-port=8080 --dry-run=client -o yaml --namespace=demo > yamls/angular/service.yaml
 ```
 
 ## 延伸閱讀

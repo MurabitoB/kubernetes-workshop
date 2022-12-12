@@ -159,5 +159,7 @@ docker run -p 7005:80 -e Variable=Test in Environment Variable -e VariableInObje
 ```bash
 docker build -t dotnet-web-sample .
 docker tag dotnet-web-sample:latest <your-docker-hub-account>/dotnet-web-sample:latest
-docker push <your-docker-hub-account>/dotnet-web-sample:latest
+docker tag dotnet-web-sample:latest murabitob.azurecr.io/dotnet-web-sample:latest
+
+docker push murabitob.azurecr.io/dotnet-web-sample:latest
 ```
