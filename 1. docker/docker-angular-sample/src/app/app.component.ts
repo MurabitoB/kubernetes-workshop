@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'docker-angular-sample';
+
+  env: Observable<any> = new Observable<any>();
+
+  constructor(private http: HttpClient) {
+    this.env = this.http.get('/assets/env/env.json');
+  }
 }

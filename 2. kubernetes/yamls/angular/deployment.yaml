@@ -24,4 +24,12 @@ spec:
           - name: http
             containerPort: 8080
             protocol: TCP
+        volumeMounts:
+            - name: env-config
+              mountPath: /usr/share/nginx/html/assets/env/env.json
+              subPath: env.json
+      volumes:
+        - name: env-config
+          configMap:
+            name: docker-angular-sample
 status: {}

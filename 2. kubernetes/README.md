@@ -86,6 +86,58 @@ kubectl expose deployment docker-angular-sample --type=LoadBalancer --port=80 --
 kubectl create configmap docker-angular-sample --dry-run=client -o yaml --namespace=demo > yamls/angular/configmap.yaml
 ```
 
+修改輸出的 configMap yaml，將 `data` 改為以下內容：
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: docker-angular-sample
+  namespace: demo
+data:
+  env.json: |
+    {
+      "value": "value in kubernetes configMap."
+    }
+```
+
+修改 yamls/angular/deployment.yaml，將 `spec.template.spec.containers[0].volumeMounts` 改為以下內容：
+
+```yaml
+  template:
+    metadata:
+      labels:
+        app: docker-angular-sample
+    spec:
+      containers:
+      - image: murabitob.azurecr.io/docker-angular-sample:latest
+        name: docker-angular-sample
+        resources: {}
+        ports: 
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+        volumeMounts:
+            - name: env-config
+              mountPath: /usr/share/nginx/html/assets/env/env.json
+              subPath: env.json
+    volumes:
+      - name: env-config
+        configMap:
+          name: docker-angular-sample
+```
+
+5. 依序 apply 這些 yaml 到環境上面 
+
+順序： configMap -> deployment -> service
+
+```bash
+kubectl apply -f yamls/angular/configmap.yaml
+kubectl apply -f yamls/angular/deployment.yaml
+kubectl apply -f yamls/angular/service.yaml
+```
+
+
 ### .NET Core 專案
 
 這個專案會用 `dotnet-web-sample`  image 進行部署，並包含 deployment, service, configMap 等 k8s objects。
@@ -159,4 +211,14 @@ data:
         envFrom:
           - configMapRef:
               name: dotnet-web-sample
+```
+
+5. 依序 apply 這些 yaml 到環境上面 
+
+順序： configMap -> deployment -> service
+
+```bash
+kubectl apply -f yamls/dotnet/configmap.yaml
+kubectl apply -f yamls/dotnet/deployment.yaml
+kubectl apply -f yamls/dotnet/service.yaml
 ```
