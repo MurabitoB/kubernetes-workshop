@@ -86,3 +86,11 @@ docker build -t docker-angular-sample .
 docker tag docker-angular-sample:latest <your-docker-hub-account>/docker-angular-sample:latest
 docker push <your-docker-hub-account>/docker-angular-sample:latest
 ```
+
+## 備註
+
+如果你的環境是 m1 mac，請使用以下指令來打包
+
+```bash
+docker buildx build --platform=linux/amd64 -t docker-angular-sample . 
+```

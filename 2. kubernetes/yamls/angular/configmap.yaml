@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  configmap.yaml: ""
+kind: ConfigMap
+metadata:
+  name: docker-angular-sample
+  namespace: demo

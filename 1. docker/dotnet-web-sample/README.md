@@ -151,7 +151,7 @@ docker build -t dotnet-web-sample .
 2. 透過 Docker CLI 執行
 
 ```bash
-docker run -p 7005:80 -e Variable=Test in Environment Variable -e VariableInObject__Key=Varriable In Environment Variable -e VariableInArray__0=Varriable In Environment Variable dotnet-web-sample
+docker run -p 7005:80 -e Variable="Varriable In Environment Variable" -e VariableInObject__Key="Varriable In Environment Variable" -e VariableInArray__0="Varriable In Environment Variable" dotnet-web-sample
 ```
 
 3. 透過 Docker CLI 打包至 Docker Hub
@@ -162,4 +162,12 @@ docker tag dotnet-web-sample:latest <your-docker-hub-account>/dotnet-web-sample:
 docker tag dotnet-web-sample:latest murabitob.azurecr.io/dotnet-web-sample:latest
 
 docker push murabitob.azurecr.io/dotnet-web-sample:latest
+```
+
+## 備註
+
+如果你的環境是 m1 晶片的 mac，請將 build 的指令換成以下指令
+
+```bash
+docker buildx build --platform=linux/amd64 -t dotnet-web-sample .
 ```

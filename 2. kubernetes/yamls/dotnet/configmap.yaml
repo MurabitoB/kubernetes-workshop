@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dotnet-web-sample
+  namespace: demo
+data:
+  VariableInObject__Key: "VariableInKubernetesConfigMap"
+  VariableInArray__0: "VariableInKubernetesConfigMap"
+  Variable: "VariableInKubernetesConfigMap"

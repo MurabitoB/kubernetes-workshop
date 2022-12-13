@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: dotnet-web-sample
+  name: dotnet-web-sample
+  namespace: demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dotnet-web-sample
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: dotnet-web-sample
+    spec:
+      containers:
+      - image: murabitob.azurecr.io/dotnet-web-sample
+        name: dotnet-web-sample
+        resources: {}
+        ports:
+          - name: http
+            containerPort: 80
+            protocol: TCP
+        envFrom:
+          - configMapRef:
+              name: dotnet-web-sample
+status: {}

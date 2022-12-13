@@ -42,28 +42,121 @@ Secret 是一個用來儲存敏感資訊的物件，它可以讓我們將敏感�
 
 ## 開始練習
 
+### Angular 專案
+
+這個專案會用 `docker-angular-sample`  image 進行部署，並包含 deployment, service, configMap 等 k8s objects。
+
+此外，該練習會使用 configMap 來替換 env.json 中的設定，並且將 configMap 的設定檔透過 volume 的方式，掛載到 container 中。
+
 1. 建立一個名為 `demo` 的 Namespace
 
 ```bash
 kubectl create namespace demo
 ```
 
-2. 建立一個名為 `docker-angular-sample` 的 deployment，但是不要 apply 到環境上，而是透過 `--dry-run` 來檢查是否有錯誤，其要包含 2 個 Pod，並且使用 `docker-angular-sample` 的 image，`namespace` 指定為 `demo`， port 
+2. 建立一個 deployment，但是不要 apply 到環境上，而是透過 `--dry-run` 來檢查是否有錯誤，其要包含 2 個 Pod，並且使用 `docker-angular-sample` 的 image，`namespace` 指定為 `demo`，並且指定 container port 為 8080。
 
 ```bash
-kubectl create deployment docker-angular-sample --image=<registry>/docker-angular-sample --dry-run -o yaml --replicas=2 --namespace demo
+kubectl create deployment docker-angular-sample --image=murabitob.azurecr.io/docker-angular-sample --dry-run=client -o yaml --replicas=2 --namespace demo
 ```
 
-3. 將上述指令轉成檔案，存放到 yamls/angular/deployment.yaml
+修改輸出的 deployment yaml，將 `spec.template.spec.containers[0].ports[0].containerPort` 改為 8080。
+
+```yaml
+    spec:
+      containers:
+      - image: murabitob.azurecr.io/docker-angular-sample:latest
+        name: docker-angular-sample
+        resources: {}
+        ports: 
+          - name: http
+            containerPort: 8080
+            protocol: TCP
+```
+
+3. 建立一個 service 來暴露上述的 deployment 所建立的 pod，並且將 service 的 type 指定為 `NodePort`，並且將 port 指定為 `80`，`namespace` 指定為 `demo`，並且存放到 yamls/angular/deployment.yaml。
 
 ```bash
-kubectl create deployment docker-angular-sample --image=murabitob.azurecr.io/docker-angular-sample --dry-run=client -o yaml --replicas=2 --namespace demo > yamls/angular/deployment.yaml
+kubectl expose deployment docker-angular-sample --type=LoadBalancer --port=80 --target-port=8080 --dry-run=client -o yaml --namespace=demo > yamls/angular/service.yaml
 ```
 
-4. 建立一個 service 來暴露上述的 deployment 所建立的 pod，並且將 service 的 type 指定為 `NodePort`，並且將 port 指定為 `80`，`namespace` 指定為 `demo`。
+4. 建立 configMap 來儲存 `docker-angular-sample` 的設定檔，並且將設定檔的內容放到 yamls/angular/configmap.yaml。
 
 ```bash
-kubectl expose deployment docker-angular-sample --type=NodePort --port=80 --target-port=8080 --dry-run=client -o yaml --namespace=demo > yamls/angular/service.yaml
+kubectl create configmap docker-angular-sample --dry-run=client -o yaml --namespace=demo > yamls/angular/configmap.yaml
 ```
 
-## 延伸閱讀
+### .NET Core 專案
+
+這個專案會用 `dotnet-web-sample`  image 進行部署，並包含 deployment, service, configMap 等 k8s objects。
+
+此外，該練習會使用 configMap 來替換作業系統的環境變數，來取代原本的 appsettings.json。
+
+1. 建立一個名為 `demo` 的 Namespace
+
+```bash
+kubectl create namespace demo
+```
+
+2. 建立一個 deployment，但是不要 apply 到環境上，而是透過 `--dry-run` 來檢查是否有錯誤，其要包含 2 個 Pod，並且使用 `dotnet-web-sample` 的 image，`namespace` 指定為 `demo`，並且指定 container port 為 80。
+
+```bash
+kubectl create deployment dotnet-web-sample --image=murabitob.azurecr.io/dotnet-web-sample --dry-run=client -o yaml --replicas=2 --namespace demo > yamls/dotnet/deployment.yaml
+```
+
+修改輸出的 deployment yaml，將 `spec.template.spec.containers[0].ports[0].containerPort` 改為 80。
+
+```yaml
+    spec:
+      containers:
+      - image: murabitob.azurecr.io/dotnet-web-sample:latest
+        name: dotnet-web-sample
+        resources: {}
+        ports: 
+          - name: http
+            containerPort: 80
+            protocol: TCP
+```
+
+3. 建立一個 service 來暴露上述的 deployment 所建立的 pod，並且將 service 的 type 指定為 `NodePort`，並且將 port 指定為 `80`，`namespace` 指定為 `demo`，並且存放到 yamls/dotnet/deployment.yaml。
+
+```bash
+kubectl expose deployment dotnet-web-sample --type=LoadBalancer --port=80 --target-port=80 --dry-run=client -o yaml --namespace=demo > yamls/dotnet/service.yaml
+```
+
+4. 建立 configMap 來儲存 `dotnet-web-sample` 的設定檔，並且將設定檔的內容放到 yamls/dotnet/configmap.yaml。
+
+```bash
+kubectl create configmap dotnet-web-sample --dry-run=client -o yaml --namespace=demo > yamls/dotnet/configmap.yaml
+```
+
+修改 configMap 的內容，設定環境變數。
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dotnet-web-sample
+  namespace: demo
+data:
+  VariableInObject__Key: "VariableInKubernetesConfigMap"
+  VariableInArray__0: "VariableInKubernetesConfigMap"
+  Variable: "VariableInKubernetesConfigMap"
+```
+
+修改 deployment 的內容，使用 configMap 的環境變數。
+
+```yaml
+    spec:
+      containers:
+      - image: murabitob.azurecr.io/dotnet-web-sample:latest
+        name: dotnet-web-sample
+        resources: {}
+        ports: 
+          - name: http
+            containerPort: 80
+            protocol: TCP
+        envFrom:
+          - configMapRef:
+              name: dotnet-web-sample
+```

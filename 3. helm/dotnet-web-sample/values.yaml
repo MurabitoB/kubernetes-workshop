@@ -43,11 +43,18 @@ resources: {}
   # requests:
   #   cpu: 100m
   #   memory: 128Mi
+
+
 autoscaling:
   enabled: false
 
 ingress:
   enabled: false
+
+configMap:
+  valueInObject: "VariableInKubernetesConfigMap"
+  value: "VariableInKubernetesConfigMap"
+  valueInArray_0: "VariableInKubernetesConfigMap"
 
 nodeSelector: {}
 
