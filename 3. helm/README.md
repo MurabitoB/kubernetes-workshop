@@ -44,7 +44,6 @@ helm create <chart name>
 │       └── test-connection.yaml
 └── values.yaml # 可以動態設定的值
 
-```
 
 ## 安裝 Remote 的 Helm Chart 到 Kubernetes
 
@@ -56,7 +55,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 
 ## 安裝 Helm Chart 到 Kubernetes
 
-透過 `helm install` 指令可以安裝本地的 Helm Chart 到 Kubernetes，要注意的是，他會依照目前 `kubectl` 的 context 來決定要安裝到哪個 cluster。
+透過 `helm install` 指令可以安裝 Helm Chart 到 Kubernetes，要注意的是，他會依照目前 `kubectl` 的 context 來決定要安裝到哪個 cluster。
 
 ```bash
 helm install <chart name> <chart path>
@@ -68,3 +67,73 @@ EX:
 helm install apache bitnami/apache
 ```
 
+如果要安裝本地的 Helm Chart，可以透過 `.` 來指定。
+
+```bash
+helm install <chart name> .
+```
+
+## Chart.yaml
+
+```yaml
+apiVersion: v2
+name: <chart name>
+description: A Helm chart for Kubernetes
+type: application
+version: 0.1.0
+appVersion: 1.16.0
+```
+
+- type
+    - 可以為 application 或者 library
+        - library 可被其他 application 引入，並定義一些 function
+- version
+    - Chart 的版本號 (每次修改都要更新)
+- appVersion
+    - 程式的版本號
+- icon
+    - 可以提供 chart 的縮圖
+- keyword
+    - 就是關鍵字
+- resources
+    - 提供資訊用來表示自己的專案可以從哪裡下載
+- maintainers
+    - 維護者
+
+## values.yaml
+
+values.yaml 為可以動態設定的值，可以透過 `--set` 來覆蓋，例如：
+
+```bash
+helm install <chart name> --set image.tag=1.16.0
+```
+
+## _helpers.tpl
+
+可以在 template 中使用的函式，例如：
+
+```bash
+{{- define "chart.name" -}}
+{{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+```
+
+## 將 Helm Chart 推送到 Azure Container Registry
+
+1. 設定環境變數，支援 OCI 標準
+
+```bash
+export HELM_EXPERIMENTAL_OCI=1
+```
+
+2. 將 Helm Chart 打包成 OCI 標準
+
+```bash
+helm chart save <chart name> <registry url>/<chart name>:<tag>
+```
+
+3. 將 Helm Chart 推送到 ACR
+
+```bash
+helm chart push <registry url>/<chart name>:<tag>
+```
