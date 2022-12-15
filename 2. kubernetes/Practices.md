@@ -14,13 +14,13 @@
 
 ## 練習 2
 
-建立一個 nginx 的 Pod，並且將它的 port 80 對應到本機的 8080。
+建立一個 nginx 的 Pod，並且將它的 port 80 。
 
 <details>
  <summary>解答</summary>
 
  ```bash
- kubectl run nginx --image=nginx --port=80
+ kubectl run nginx --image=nginx --port=80 --namespace=<yournamespace>
  ```
 </details>
 
