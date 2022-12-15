@@ -11,9 +11,5 @@
 4. [Kubernetes CLI (kubectl)](https://kubernetes.io/zh-cn/docs/tasks/tools/#kubectl)
 5. [Chocolatey](https://chocolatey.org/install)
 6. [Helm CLI](https://helm.sh/docs/intro/install/)
-
-## 其他建議安裝工具
-
-1. [Kubernetes Lens](https://k8slens.dev/)
-2. [Azure CLI](https://learn.microsoft.com/zh-tw/cli/azure/install-azure-cli
-)
+7. [Kubernetes Lens](https://k8slens.dev/)
+8. [Azure CLI](https://learn.microsoft.com/zh-tw/cli/azure/install-azure-cli)
