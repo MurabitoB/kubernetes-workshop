@@ -85,13 +85,13 @@
  </details>
 
 ## 練習 8
-使用 Service 把 nginx 的 port 80 對應到本機的 8080。
+使用 Service 把 nginx 的 port 80 對應到 Service 的 Port
 
 <details>
  <summary>解答</summary>
 
  ```bash
- kubectl expose deployment nginx --port=80 --target-port=80 --type=NodePort
+ kubectl expose deployment nginx --port=80 --target-port=80 --type=ClusterIP
  ```
  </details>
 
@@ -107,6 +107,6 @@
  ```
 
   ```bash
-  kubectl expose deployment nginx --port=80 --target-port=80 --type=NodePort --dry-run -o yaml
+  kubectl expose deployment nginx --port=80 --target-port=80 --type=ClusterIP --dry-run -o yaml
   ```
  </details>
