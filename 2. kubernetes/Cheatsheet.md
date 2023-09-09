@@ -9,5 +9,5 @@
 | 檢視 k8s object 列表 | kubectl get {pods\|deployments\|services\|.etc}|`--namespace={namespace}`指定特定的 namespace(預設為 default)|
 |透過 `vim` 直接編輯線上的 k8s object 編輯完成後自動更新環境| kubectl edit {k8s object} {object name}| |
 |取得 POD 的 Shell|kubectl exec --srtin --tty {pod name} -- bin|
-| 給 Deployment 建立 Service | kubectl expose deploy {deploy-name} --type=<NodePort,ExternalIP,ClusterIP> --name={service-name}
-| 
+| 給 Deployment 建立 Service | kubectl expose deploy {deploy-name} --type=<NodePort,ExternalIP,ClusterIP> --name={service-name} |
+| Portforwarding 到本機 | kubectl port-forward {object type}/{object name} {local port}:{binding port}

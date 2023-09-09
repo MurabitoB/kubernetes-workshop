@@ -4,6 +4,7 @@ metadata:
   labels:
     app: docker-angular-sample
   name: docker-angular-sample
+  namespace: demo
 spec:
   replicas: 2
   selector:
@@ -16,7 +17,7 @@ spec:
         app: docker-angular-sample
     spec:
       containers:
-      - image:  k8sworkshop.azurecr.io/docker-angular-sample:latest
+      - image: murabitob.azurecr.io/docker-angular-sample:latest
         name: docker-angular-sample
         resources: {}
         ports: 
