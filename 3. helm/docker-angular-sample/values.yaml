@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: k8sworkshop.azurecr.io/docker-angular-sample
+  repository:  k8sworkshop.azurecr.io/docker-angular-sample
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""

@@ -83,8 +83,8 @@ docker run -d -p 8080:8080 docker-angular-sample
 3. 透過 Docker CLI 打包至 Docker Hub
 ```bash
 docker build -t docker-angular-sample .
-docker tag docker-angular-sample:latest k8sworkshop.azurecr.io/docker-angular-sample:latest
-docker push k8sworkshop.azurecr.io/docker-angular-sample:latest
+docker tag docker-angular-sample:latest  k8sworkshop.azurecr.io/docker-angular-sample:latest
+docker push  k8sworkshop.azurecr.io/docker-angular-sample:latest
 ```
 
 ## 備註

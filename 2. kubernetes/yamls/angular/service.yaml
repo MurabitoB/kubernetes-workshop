@@ -4,7 +4,6 @@ metadata:
   labels:
     app: docker-angular-sample
   name: docker-angular-sample
-  namespace: demo
 spec:
   ports:
   - port: 80

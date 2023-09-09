@@ -159,9 +159,9 @@ docker run -p 7005:80 -e Variable="Varriable In Environment Variable" -e Variabl
 ```bash
 docker build -t dotnet-web-sample .
 docker tag dotnet-web-sample:latest <your-docker-hub-account>/dotnet-web-sample:latest
-docker tag dotnet-web-sample:latest k8sworkshop.azurecr.io/dotnet-web-sample:latest
+docker tag dotnet-web-sample:latest  k8sworkshop.azurecr.io/dotnet-web-sample:latest
 
-docker push k8sworkshop.azurecr.io/dotnet-web-sample:latest
+docker push  k8sworkshop.azurecr.io/dotnet-web-sample:latest
 ```
 
 ## 備註
