@@ -57,7 +57,7 @@ kubectl create namespace demo
 2. 建立一個 deployment，但是不要 apply 到環境上，而是透過 `--dry-run` 來檢查是否有錯誤，其要包含 2 個 Pod，並且使用 `docker-angular-sample` 的 image，`namespace` 指定為 `demo`，並且指定 container port 為 8080。
 
 ```bash
-kubectl create deployment docker-angular-sample --image=murabitob.azurecr.io/docker-angular-sample --dry-run=client -o yaml --replicas=2 --namespace demo
+kubectl create deployment docker-angular-sample --image=k8sworkshop.azurecr.io/docker-angular-sample --dry-run=client -o yaml --replicas=2 --namespace demo
 ```
 
 修改輸出的 deployment yaml，將 `spec.template.spec.containers[0].ports[0].containerPort` 改為 8080。
@@ -65,7 +65,7 @@ kubectl create deployment docker-angular-sample --image=murabitob.azurecr.io/doc
 ```yaml
     spec:
       containers:
-      - image: murabitob.azurecr.io/docker-angular-sample:latest
+      - image: k8sworkshop.azurecr.io/docker-angular-sample:latest
         name: docker-angular-sample
         resources: {}
         ports: 
@@ -110,7 +110,7 @@ data:
         app: docker-angular-sample
     spec:
       containers:
-      - image: murabitob.azurecr.io/docker-angular-sample:latest
+      - image: k8sworkshop.azurecr.io/docker-angular-sample:latest
         name: docker-angular-sample
         resources: {}
         ports: 
@@ -153,7 +153,7 @@ kubectl create namespace demo
 2. 建立一個 deployment，但是不要 apply 到環境上，而是透過 `--dry-run` 來檢查是否有錯誤，其要包含 2 個 Pod，並且使用 `dotnet-web-sample` 的 image，`namespace` 指定為 `demo`，並且指定 container port 為 80。
 
 ```bash
-kubectl create deployment dotnet-web-sample --image=murabitob.azurecr.io/dotnet-web-sample --dry-run=client -o yaml --replicas=2 --namespace demo > yamls/dotnet/deployment.yaml
+kubectl create deployment dotnet-web-sample --image=k8sworkshop.azurecr.io/dotnet-web-sample --dry-run=client -o yaml --replicas=2 --namespace demo > yamls/dotnet/deployment.yaml
 ```
 
 修改輸出的 deployment yaml，將 `spec.template.spec.containers[0].ports[0].containerPort` 改為 80。
@@ -161,7 +161,7 @@ kubectl create deployment dotnet-web-sample --image=murabitob.azurecr.io/dotnet-
 ```yaml
     spec:
       containers:
-      - image: murabitob.azurecr.io/dotnet-web-sample:latest
+      - image: k8sworkshop.azurecr.io/dotnet-web-sample:latest
         name: dotnet-web-sample
         resources: {}
         ports: 
@@ -201,7 +201,7 @@ data:
 ```yaml
     spec:
       containers:
-      - image: murabitob.azurecr.io/dotnet-web-sample:latest
+      - image: k8sworkshop.azurecr.io/dotnet-web-sample:latest
         name: dotnet-web-sample
         resources: {}
         ports: 

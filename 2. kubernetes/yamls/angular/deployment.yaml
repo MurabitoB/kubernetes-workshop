@@ -17,9 +17,9 @@ spec:
         app: docker-angular-sample
     spec:
       containers:
-      - image: murabitob.azurecr.io/docker-angular-sample:latest
+      - image: k8sworkshop.azurecr.io/docker-angular-sample:latest
         name: docker-angular-sample
-        resources: {}
+        resources: {
         ports: 
           - name: http
             containerPort: 8080

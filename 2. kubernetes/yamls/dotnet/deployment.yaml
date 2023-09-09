@@ -19,7 +19,7 @@ spec:
         app: dotnet-web-sample
     spec:
       containers:
-      - image: murabitob.azurecr.io/dotnet-web-sample
+      - image: k8sworkshop.azurecr.io/dotnet-web-sample
         name: dotnet-web-sample
         resources: {}
         ports:

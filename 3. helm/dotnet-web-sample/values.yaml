@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: murabitob.azurecr.io/dotnet-web-sample # murabiot
+  repository: k8sworkshop.azurecr.io/dotnet-web-sample # murabiot
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
